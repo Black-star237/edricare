@@ -1,0 +1,14 @@
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.mt-4 { margin-top: 1rem; }
+.mb-4 { margin-bottom: 1rem; }
+.text-center { text-align: center; }
+.font-bold { font-weight: 700; }
+.w-full { width: 100%; }
+.bg-white { background-color: var(--pure-white); }
+.rounded-lg { border-radius: var(--radius-md); }
+.shadow-sm { box-shadow: var(--shadow-sm); }
