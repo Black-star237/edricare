@@ -20,7 +20,8 @@ const Auth = () => {
         { id: 'infirmier', label: 'Soin infirmier', icon: '💉' },
         { id: 'quotidien', label: 'Assistance quotidienne', icon: '🏠' },
         { id: 'multiple', label: 'Choix multiple', icon: '🔄' },
-        { id: 'carte', label: 'Service à la carte', icon: '📋' }
+        { id: 'carte', label: 'Service à la carte', icon: '📋' },
+        { id: 'unknown', label: 'Je ne sais pas exactement', icon: '❓' }
     ];
 
     const handleAuth = (e) => {
@@ -93,22 +94,23 @@ const Auth = () => {
                     </p>
 
                     <div className="next-steps">
-                        <h3>Prochaines étapes :</h3>
-                        <ul>
-                            {role === 'prestataire' ? (
-                                <>
-                                    <li>Vérification de vos diplômes et certifications.</li>
-                                    <li>Appel de bienvenue pour discuter de vos disponibilités.</li>
-                                    <li>Activation de votre compte pour recevoir des missions.</li>
-                                </>
-                            ) : (
-                                <>
+                        {role === 'prestataire' ? (
+                            <div className="contact-promise">
+                                <h3 style={{color: 'var(--mustard-dark)', fontSize: '1.4rem', marginBottom: '1rem'}}>
+                                    Nous vous contacterons dans les plus bref délai.
+                                </h3>
+                                <p>Un membre de notre équipe examinera votre profil et vous appellera pour finaliser votre intégration.</p>
+                            </div>
+                        ) : (
+                            <>
+                                <h3>Prochaines étapes :</h3>
+                                <ul>
                                     <li>Complétez votre profil de famille.</li>
                                     <li>Recherchez un soignant disponible dans votre ville.</li>
                                     <li>Réservez votre première prestation en toute sécurité.</li>
-                                </>
-                            )}
-                        </ul>
+                                </ul>
+                            </>
+                        )}
                     </div>
 
                     <Button 
@@ -205,8 +207,12 @@ const Auth = () => {
                         </>
                     )}
                     <div className="form-group">
-                        <label>Email / Téléphone</label>
-                        <input type="text" placeholder="Ex: contact@email.com" required />
+                        <label>{role === 'prestataire' ? 'Numéro de téléphone' : 'Email / Téléphone'}</label>
+                        <input 
+                            type="text" 
+                            placeholder={role === 'prestataire' ? 'Ex: 680 159 877' : 'Ex: contact@email.com'} 
+                            required 
+                        />
                     </div>
                     <div className="form-group">
                         <label>Mot de passe</label>

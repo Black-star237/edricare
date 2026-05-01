@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ShieldCheck, Coins, Award, ExternalLink } from 'lucide-react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
+import FAQ from '../components/FAQ';
 import './Prestataire.css';
 
 const Prestataire = () => {
@@ -69,7 +70,11 @@ const Prestataire = () => {
                         </div>
                     ))}
                 </div>
+            </div>
 
+            <FAQ type="prestataire" />
+
+            <div className="container">
                 <section className="provider-cta-section">
                     <div className="provider-cta-layout">
                         <div className="provider-cta-content">
