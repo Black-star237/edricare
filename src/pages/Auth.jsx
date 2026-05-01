@@ -106,7 +106,7 @@ const Auth = () => {
                                 <h3>Prochaines étapes :</h3>
                                 <ul>
                                     <li>Complétez votre profil de famille.</li>
-                                    <li>Recherchez un soignant disponible dans votre ville.</li>
+                                    <li>Recherchez un prestataire disponible dans votre ville.</li>
                                     <li>Réservez votre première prestation en toute sécurité.</li>
                                 </ul>
                             </>
@@ -142,7 +142,7 @@ const Auth = () => {
                         <div className="role-option" onClick={() => setRole('prestataire')}>
                             <div className="role-icon">⚕️</div>
                             <h3>Je suis un Prestataire</h3>
-                            <p>Je suis un professionnel de santé ou un aidant.</p>
+                            <p>Je suis un prestataire ou un aidant.</p>
                         </div>
                     </div>
 

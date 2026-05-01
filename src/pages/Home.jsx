@@ -18,17 +18,17 @@ const Home = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <div className="hero-badge">
-                            ✨ Nouvel Standard de Soin au Cameroun
+                            ✨ Nouveau Standard d'Assistance au Cameroun
                         </div>
                         <h1 className="hero-title">
-                            Le soin qui vous <span className="text-orange-gradient">comprend vraiment</span>.
+                            L'assistance qui vous <span className="text-orange-gradient">comprend vraiment</span>.
                         </h1>
                         <p className="hero-subtitle">
-                            EldriCare connecte les familles camerounaises aux meilleurs professionnels de santé pour des soins à domicile de qualité, sécurisés et humains.
+                            EldriCare connecte les familles camerounaises aux meilleurs prestataires pour une assistance à domicile de qualité, sécurisée et humaine.
                         </p>
                         <div className="hero-actions">
                             <Link to="/client">
-                                <Button size="lg" className="hero-btn">Trouver un soignant</Button>
+                                <Button size="lg" className="hero-btn">Trouver un prestataire</Button>
                             </Link>
                             <Link to="/prestataire">
                                 <Button variant="outline" size="lg" className="hero-btn">Devenir prestataire</Button>
@@ -56,19 +56,19 @@ const Home = () => {
                             <div className="exp-icon">🛡️</div>
                             <div>
                                 <h4>100% Sécurisé</h4>
-                                <p>Soignants vérifiés & certifiés</p>
+                                <p>Prestataires vérifiés & qualifiés</p>
                             </div>
                         </div>
                         <div className="experience-card secondary">
                             <div className="exp-icon">❤️</div>
                             <div>
                                 <h4>Proximité</h4>
-                                <p>Un soignant près de chez vous</p>
+                                <p>Un prestataire près de chez vous</p>
                             </div>
                         </div>
                         {/* Placeholder for Hero Image */}
                         <div className="hero-image-placeholder">
-                            <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80" alt="Home Care" />
+                            <img src="https://images.unsplash.com/photo-1581579205702-c6c8ea23e207?auto=format&fit=crop&w=800&q=80" alt="Assistance à domicile" />
                         </div>
                     </motion.div>
                 </div>
@@ -79,13 +79,13 @@ const Home = () => {
                 <div className="container">
                     <div className="section-header">
                         <h2 className="section-title">Pourquoi choisir EldriCare ?</h2>
-                        <p className="section-desc">Nous avons repensé le soin à domicile pour vous offrir une expérience sans stress.</p>
+                        <p className="section-desc">Nous avons repensé l'assistance à domicile pour vous offrir une expérience sans stress.</p>
                     </div>
                     
                     <div className="features-grid">
                         {[
                             { icon: <UserCheck size={32} />, title: "Personnel qualifié et vérifié", desc: "Chaque prestataire passe un test de compétence et un contrôle de moralité rigoureux." },
-                            { icon: <Clock size={32} />, title: "Disponibilité rapide", desc: "Trouvez un soignant disponible immédiatement pour répondre à vos urgences." },
+                            { icon: <Clock size={32} />, title: "Disponibilité rapide", desc: "Trouvez un prestataire disponible immédiatement pour répondre à vos urgences." },
                             { icon: <Heart size={32} />, title: "Suivi personnalisé", desc: "Une assistance sur mesure adaptée aux besoins spécifiques de chaque patient." },
                             { icon: <Shield size={32} />, title: "Respect et dignité des patients", desc: "Le respect de l'intimité et de la dignité humaine est au cœur de nos valeurs." }
                         ].map((f, i) => (
@@ -168,15 +168,15 @@ const Home = () => {
                                 type: "client",
                                 name: "M. Abena",
                                 role: "Client régulier",
-                                content: "La sécurité est ce qui m'a convaincu. Savoir que les soignants sont vérifiés me permet de partir au travail l'esprit tranquille.",
+                                content: "La sécurité est ce qui m'a convaincu. Savoir que les prestataires sont vérifiés me permet de partir au travail l'esprit tranquille.",
                                 rating: 4,
                                 avatar: "👨‍💼"
                             },
                             {
                                 type: "prestataire",
                                 name: "Sarah L.",
-                                role: "Aide-soignante",
-                                content: "Je me sens accompagnée et soutenue par l'équipe EldriCare. C'est plus qu'une plateforme, c'est une communauté de soignants passionnés.",
+                                role: "Assistante de vie",
+                                content: "Je me sens accompagnée et soutenue par l'équipe EldriCare. C'est plus qu'une plateforme, c'est une communauté de prestataires passionnés.",
                                 rating: 5,
                                 avatar: "👩‍⚕️"
                             }
@@ -196,7 +196,7 @@ const Home = () => {
                                         <span className="testimonial-role">{t.role}</span>
                                     </div>
                                     <div className="testimonial-badge">
-                                        {t.type === 'prestataire' ? 'Professionnel' : 'Famille'}
+                                        {t.type === 'prestataire' ? 'Prestataire' : 'Famille'}
                                     </div>
                                 </div>
                                 <div className="testimonial-rating">

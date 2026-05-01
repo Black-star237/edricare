@@ -29,7 +29,7 @@ function App() {
             <div className="footer-grid">
               <div className="footer-brand">
                 <span className="footer-logo">🏠 EldriCare</span>
-                <p>La référence du soin à domicile au Cameroun. Accompagnement, soins et dignité.</p>
+                <p>La référence de l'assistance à domicile au Cameroun. Accompagnement, écoute et dignité.</p>
                 <div className="footer-contact-info">
                   <p>📧 eldricare01@gmail.com</p>
                   <p>💬 WhatsApp: 680159877</p>

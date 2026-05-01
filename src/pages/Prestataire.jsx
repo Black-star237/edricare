@@ -21,7 +21,7 @@ const Prestataire = () => {
                             🚀 Opportunité Pro
                         </div>
                         <h1 className="provider-title">
-                            Valorisez votre expertise <span className="text-orange-gradient">de soignant</span>.
+                            Valorisez votre expertise <span className="text-orange-gradient">d'assistant</span>.
                         </h1>
                         <p className="provider-desc">
                             Rejoignez la plateforme leader au Cameroun. Accédez à des missions flexibles, gérez votre planning et sécurisez vos revenus directement sur votre mobile.
@@ -30,7 +30,6 @@ const Prestataire = () => {
                             <Link to="/auth?mode=register&role=prestataire">
                                 <Button size="lg">Rejoindre le réseau</Button>
                             </Link>
-                            <Button variant="ghost" size="lg">Comment ça marche ?</Button>
                         </div>
                     </motion.div>
 
