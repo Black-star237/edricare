@@ -12,7 +12,9 @@ const FAQ = ({ type }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (question.trim()) {
-            // Simulate sending question
+            const whatsappUrl = `https://wa.me/237672420112?text=${encodeURIComponent(question.trim())}`;
+            window.open(whatsappUrl, '_blank');
+            
             setIsSubmitted(true);
             setQuestion('');
             

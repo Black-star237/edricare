@@ -1,11 +1,23 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Heart, Shield, Star, PlayCircle, ArrowRight, Clock, UserCheck, MessageCircle, Mail, Phone } from 'lucide-react';
 import Button from '../components/Button';
 import './Home.css';
+import heroImage from '../assets/hero-image.png';
+import heroImage2 from '../assets/hero-image-2.png';
+import heroImage3 from '../assets/hero-image-3.png';
 
 const Home = () => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const images = [heroImage, heroImage2, heroImage3];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [images.length]);
     return (
         <div className="home-page">
             {/* Hero Section */}
@@ -66,9 +78,20 @@ const Home = () => {
                                 <p>Un prestataire près de chez vous</p>
                             </div>
                         </div>
-                        {/* Placeholder for Hero Image */}
+                        {/* Hero Image Slider */}
                         <div className="hero-image-placeholder">
-                            <img src="https://images.unsplash.com/photo-1581579205702-c6c8ea23e207?auto=format&fit=crop&w=800&q=80" alt="Assistance à domicile" />
+                            <AnimatePresence>
+                                <motion.img 
+                                    key={currentImageIndex}
+                                    src={images[currentImageIndex]} 
+                                    alt="Assistance à domicile" 
+                                    initial={{ x: '100%' }}
+                                    animate={{ x: 0 }}
+                                    exit={{ x: '-100%' }}
+                                    transition={{ duration: 0.8, ease: 'easeInOut' }}
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
+                            </AnimatePresence>
                         </div>
                     </motion.div>
                 </div>
@@ -121,16 +144,16 @@ const Home = () => {
                             Contactez-nous pour une évaluation gratuite et un devis personnalisé.
                         </p>
                         <div className="pricing-actions">
-                            <a href="mailto:eldricare01@gmail.com">
+                            <a href="mailto:Eldricare1@gmail.com">
                                 <Button variant="primary">
                                     <Mail size={18} style={{marginRight: '8px'}} />
-                                    eldricare01@gmail.com
+                                    Eldricare1@gmail.com
                                 </Button>
                             </a>
-                            <a href="https://wa.me/237680159877" target="_blank" rel="noopener noreferrer">
+                            <a href="https://wa.me/237672420112" target="_blank" rel="noopener noreferrer">
                                 <Button variant="outline">
                                     <MessageCircle size={18} style={{marginRight: '8px'}} />
-                                    WhatsApp: 680159877
+                                    WhatsApp: 672420112
                                 </Button>
                             </a>
                         </div>
@@ -225,14 +248,14 @@ const Home = () => {
                         <div className="contact-info-grid">
                             <div className="contact-info-item">
                                 <Mail color="var(--mustard)" />
-                                <span>eldricare01@gmail.com</span>
+                                <span>Eldricare1@gmail.com</span>
                             </div>
                             <div className="contact-info-item">
                                 <Phone color="var(--mustard)" />
-                                <span>+237 680 159 877</span>
+                                <span>+237 672 420 112</span>
                             </div>
                         </div>
-                        <Button variant="primary" size="lg" className="mt-8" onClick={() => window.open('https://wa.me/237680159877', '_blank')}>
+                        <Button variant="primary" size="lg" className="mt-8" onClick={() => window.open('https://wa.me/237672420112', '_blank')}>
                             Nous contacter sur WhatsApp
                         </Button>
                     </div>

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Users, Briefcase, Menu, X, LogIn } from 'lucide-react';
 import Button from './Button';
 import './Navbar.css';
+import logoImage from '../assets/logo.png';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -27,7 +28,7 @@ const Navbar = () => {
             <div className="navbar-container">
                 {/* Logo */}
                 <Link to="/" className="nav-logo-link">
-                    <div className="nav-logo-icon">🏠</div>
+                    <img src={logoImage} alt="EldriCare Logo" style={{ width: '100px', height: 'auto', borderRadius: '8px', mixBlendMode: 'multiply' }} />
                     <span className="nav-logo-text">EldriCare</span>
                 </Link>
 

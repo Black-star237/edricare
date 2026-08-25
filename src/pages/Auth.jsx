@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
+import { supabase } from '../supabaseClient';
 import './Auth.css';
 
 const Auth = () => {
@@ -15,6 +16,19 @@ const Auth = () => {
     const [showServiceSelection, setShowServiceSelection] = useState(false);
     const [selectedServices, setSelectedServices] = useState([]);
 
+    const [formData, setFormData] = useState({
+        fullName: '',
+        birthDate: '',
+        cities: '',
+        city: '',
+        needType: '',
+        contact: '',
+        password: ''
+    });
+    
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
+
     const SERVICES_OPTIONS = [
         { id: 'garde', label: 'Garde malade', icon: '🛌' },
         { id: 'infirmier', label: 'Soin infirmier', icon: '💉' },
@@ -24,16 +38,69 @@ const Auth = () => {
         { id: 'unknown', label: 'Je ne sais pas exactement', icon: '❓' }
     ];
 
-    const handleAuth = (e) => {
+    const handleAuth = async (e) => {
         e.preventDefault();
-        if (!isLogin) {
-            if (role === 'prestataire') {
-                setShowServiceSelection(true);
+        setErrorMsg('');
+        setIsLoading(true);
+        
+        try {
+            if (!isLogin) {
+                if (role === 'prestataire') {
+                    setShowServiceSelection(true);
+                    return;
+                } else {
+                    const { error: dbError } = await supabase.from('clients').insert([
+                        {
+                            full_name: formData.fullName,
+                            city: formData.city,
+                            need_type: formData.needType,
+                            contact: formData.contact,
+                            password: formData.password
+                        }
+                    ]);
+                    if (dbError) throw dbError;
+                    setRegistrationSuccess(true);
+                }
             } else {
-                setRegistrationSuccess(true);
+                // Login
+                let user = null;
+                
+                // Try clients table first
+                const { data: clientData, error: clientError } = await supabase
+                    .from('clients')
+                    .select('*')
+                    .eq('contact', formData.contact)
+                    .eq('password', formData.password)
+                    .single();
+                    
+                if (clientData) {
+                    user = clientData;
+                } else {
+                    // Try prestataires table
+                    const { data: presData, error: presError } = await supabase
+                        .from('prestataires')
+                        .select('*')
+                        .eq('contact', formData.contact)
+                        .eq('password', formData.password)
+                        .single();
+                        
+                    if (presData) {
+                        user = presData;
+                    }
+                }
+                
+                if (user) {
+                    navigate('/dashboard');
+                } else {
+                    setErrorMsg("Contact ou mot de passe incorrect.");
+                }
             }
-        } else {
-            navigate('/dashboard');
+        } catch (err) {
+            setErrorMsg(err.message || "Une erreur est survenue.");
+        } finally {
+            if (!showServiceSelection) {
+                setIsLoading(false);
+            }
         }
     };
 
@@ -43,9 +110,29 @@ const Auth = () => {
         );
     };
 
-    const handleServiceSubmit = () => {
-        setRegistrationSuccess(true);
-        setShowServiceSelection(false);
+    const handleServiceSubmit = async () => {
+        setErrorMsg('');
+        setIsLoading(true);
+        try {
+            const { error: dbError } = await supabase.from('prestataires').insert([
+                {
+                    full_name: formData.fullName,
+                    birth_date: formData.birthDate,
+                    cities: formData.cities,
+                    contact: formData.contact,
+                    password: formData.password,
+                    services: selectedServices.join(', ')
+                }
+            ]);
+            if (dbError) throw dbError;
+            
+            setShowServiceSelection(false);
+            setRegistrationSuccess(true);
+        } catch (err) {
+            setErrorMsg(err.message || "Une erreur est survenue.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     if (showServiceSelection) {
@@ -72,10 +159,12 @@ const Auth = () => {
                         variant="primary" 
                         className="w-full" 
                         onClick={handleServiceSubmit}
-                        disabled={selectedServices.length === 0}
+                        disabled={selectedServices.length === 0 || isLoading}
                     >
-                        Finaliser l'inscription
+                        {isLoading ? 'Chargement...' : 'Finaliser l\'inscription'}
                     </Button>
+                    
+                    {errorMsg && <div className="error-message" style={{color: '#ff4d4f', marginTop: '1rem', fontSize: '0.9rem', textAlign: 'center'}}>{errorMsg}</div>}
                 </div>
             </div>
         );
@@ -125,7 +214,6 @@ const Auth = () => {
         );
     }
 
-    // Role Selection Step if not logged in and role not chosen
     if (!isLogin && !role) {
         return (
             <div className="auth-page">
@@ -172,29 +260,57 @@ const Auth = () => {
                         <>
                             <div className="form-group">
                                 <label>Nom complet</label>
-                                <input type="text" placeholder="Ex: Jean Paul" required />
+                                <input 
+                                    type="text" 
+                                    placeholder="Ex: Jean Paul" 
+                                    required 
+                                    value={formData.fullName}
+                                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                                />
                             </div>
                             
                             {role === 'prestataire' ? (
                                 <>
                                     <div className="form-group">
                                         <label>Date de naissance</label>
-                                        <input type="date" required />
+                                        <input 
+                                            type="date" 
+                                            required 
+                                            value={formData.birthDate}
+                                            onChange={(e) => setFormData({...formData, birthDate: e.target.value})}
+                                        />
                                     </div>
                                     <div className="form-group">
                                         <label>Villes d'intervention</label>
-                                        <input type="text" placeholder="Ex: Yaoundé, Douala" required />
+                                        <input 
+                                            type="text" 
+                                            placeholder="Ex: Yaoundé, Douala" 
+                                            required 
+                                            value={formData.cities}
+                                            onChange={(e) => setFormData({...formData, cities: e.target.value})}
+                                        />
                                     </div>
                                 </>
                             ) : (
                                 <>
                                     <div className="form-group">
                                         <label>Ville</label>
-                                        <input type="text" placeholder="Ex: Yaoundé" required />
+                                        <input 
+                                            type="text" 
+                                            placeholder="Ex: Yaoundé" 
+                                            required 
+                                            value={formData.city}
+                                            onChange={(e) => setFormData({...formData, city: e.target.value})}
+                                        />
                                     </div>
                                     <div className="form-group">
                                         <label>Type de besoin</label>
-                                        <select required className="auth-select">
+                                        <select 
+                                            required 
+                                            className="auth-select"
+                                            value={formData.needType}
+                                            onChange={(e) => setFormData({...formData, needType: e.target.value})}
+                                        >
                                             <option value="">Sélectionnez un besoin...</option>
                                             <option value="medical">Soins médicaux</option>
                                             <option value="quotidien">Aide au quotidien</option>
@@ -207,20 +323,31 @@ const Auth = () => {
                         </>
                     )}
                     <div className="form-group">
-                        <label>{role === 'prestataire' ? 'Numéro de téléphone' : 'Email / Téléphone'}</label>
+                        <label>Numéro de téléphone / Email</label>
                         <input 
                             type="text" 
-                            placeholder={role === 'prestataire' ? 'Ex: 680 159 877' : 'Ex: contact@email.com'} 
+                            placeholder="Ex: 672 420 112 ou email@... " 
                             required 
+                            value={formData.contact}
+                            onChange={(e) => setFormData({...formData, contact: e.target.value})}
                         />
                     </div>
+                    
                     <div className="form-group">
                         <label>Mot de passe</label>
-                        <input type="password" placeholder="••••••••" required />
+                        <input 
+                            type="password" 
+                            placeholder="••••••••" 
+                            required 
+                            value={formData.password}
+                            onChange={(e) => setFormData({...formData, password: e.target.value})}
+                        />
                     </div>
                     
-                    <Button variant="primary" className="w-full" type="submit">
-                        {isLogin ? 'Se connecter' : 'Créer mon compte'}
+                    {errorMsg && <div className="error-message" style={{color: '#ff4d4f', marginBottom: '1rem', fontSize: '0.9rem', textAlign: 'center'}}>{errorMsg}</div>}
+
+                    <Button variant="primary" className="w-full" type="submit" disabled={isLoading}>
+                        {isLoading ? 'Chargement...' : (isLogin ? 'Se connecter' : 'Créer mon compte')}
                     </Button>
 
                     {!isLogin && (

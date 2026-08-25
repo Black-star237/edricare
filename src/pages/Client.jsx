@@ -100,7 +100,7 @@ const Client = () => {
                                                 <Button size="sm" variant="ghost" onClick={() => toggleDetails(s.id)}>
                                                     {expandedServices[s.id] ? 'Réduire' : 'Détails'} <ChevronRight size={16} />
                                                 </Button>
-                                                <Button size="sm" variant="primary" onClick={() => window.open('https://wa.me/237680159877', '_blank')}>
+                                                <Button size="sm" variant="primary" onClick={() => window.open('https://wa.me/237672420112', '_blank')}>
                                                     Nous contacter
                                                 </Button>
                                             </div>
