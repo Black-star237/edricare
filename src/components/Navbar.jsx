@@ -28,7 +28,7 @@ const Navbar = () => {
             <div className="navbar-container">
                 {/* Logo */}
                 <Link to="/" className="nav-logo-link">
-                    <img src={logoImage} alt="EldriCare Logo" style={{ width: '100px', height: 'auto', borderRadius: '8px', mixBlendMode: 'multiply' }} />
+                    <img src={logoImage} alt="EldriCare Logo" className="nav-logo-img" />
                     <span className="nav-logo-text">EldriCare</span>
                 </Link>
 
@@ -82,7 +82,7 @@ const Navbar = () => {
                                     key={link.path}
                                     to={link.path}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="mobile-linkItem"
+                                    className={`mobile-linkItem ${location.pathname === link.path ? 'active' : ''}`}
                                 >
                                     {link.icon}
                                     {link.name}

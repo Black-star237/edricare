@@ -93,15 +93,92 @@
     left: 0;
     right: 0;
     background: var(--silver-beige);
-    padding: 2rem;
+    padding: 1.5rem 1.25rem 2rem;
     box-shadow: var(--shadow-lg);
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
 }
 
-@media (max-width: 768px) {
+.navbar.scrolled .mobile-menu {
+    top: 70px;
+    max-height: calc(100vh - 70px);
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.mobile-linkItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.mobile-linkItem:hover,
+.mobile-linkItem.active {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--jet-black);
+}
+
+.mobile-divider {
+    height: 1px;
+    background: var(--border-light);
+    margin: 1rem 0;
+}
+
+/* les Button sont enveloppes dans un <a> inline : sans ca le w-full ne prend pas */
+.mobile-nav-links > a:not(.mobile-linkItem) {
+    display: block;
+    width: 100%;
+}
+
+.mobile-nav-links > a .btn {
+    width: 100%;
+    padding: 0.9rem 1rem;
+}
+
+.nav-logo-img {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+    mix-blend-mode: multiply;
+}
+
+/* 968px : en dessous, le menu desktop se tasse et chevauche le logo */
+@media (max-width: 968px) {
     .desktop-menu, .desktop-actions {
         display: none;
     }
     .mobile-toggle {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        padding: 0.25rem;
     }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 1.25rem;
+    }
+    .nav-logo-img {
+        width: 64px;
+    }
+    .nav-logo-text {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .nav-logo-img { width: 52px; }
+    .nav-logo-text { font-size: 1.1rem; }
 }

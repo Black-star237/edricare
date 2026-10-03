@@ -57,3 +57,11 @@
 .btn-lg { padding: 1.2rem 2.5rem; font-size: 1.1rem; }
 
 .w-full { width: 100%; }
+
+@media (max-width: 768px) {
+    .btn {
+        max-width: 100%;
+    }
+    .btn-lg { padding: 1rem 1.5rem; font-size: 1rem; }
+    .btn-md { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+}

@@ -223,15 +223,32 @@
 }
 
 @media (max-width: 968px) {
+    /* minmax(0, 1fr) : sans ca la colonne ne peut pas passer sous la
+       largeur min-content de .hero-actions et le hero deborde de l'ecran */
     .hero-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         text-align: center;
     }
     .hero-title { font-size: 3rem; }
     .hero-actions, .hero-trust { justify-content: center; }
+    .hero-actions { flex-wrap: wrap; }
     .hero-visual { margin-top: 4rem; }
+    /* le hero passe sur une colonne : les cartes flottantes doivent rentrer
+       dans le conteneur, sinon elles sortent de l'ecran */
+    .experience-card {
+        top: -20px;
+        left: 0;
+    }
+    .experience-card.secondary {
+        top: auto;
+        left: auto;
+        right: 0;
+        bottom: -20px;
+    }
     .features-grid { grid-template-columns: 1fr; }
     .pricing-actions { flex-direction: column; gap: 1rem; }
+    .pricing-actions > a { width: 100%; }
+    .pricing-actions .btn { width: 100%; }
 }
 
 /* Testimonials Styles */
@@ -242,7 +259,7 @@
 
 .testimonials-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 2rem;
 }
 
@@ -369,7 +386,135 @@
 @media (max-width: 768px) {
     .contact-info-grid {
         flex-direction: column;
-        gap: 1.5rem;
+        align-items: stretch;
+        gap: 1rem;
+        margin-top: 2.5rem;
     }
+
+    /* --- Hero --- */
+    .hero-section {
+        min-height: auto;
+        padding-top: 110px;
+        padding-bottom: 4rem;
+    }
+    .hero-container {
+        gap: 2.5rem;
+    }
+    .hero-badge {
+        font-size: 0.78rem;
+        padding: 0.5rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .hero-title {
+        font-size: 2.3rem;
+        letter-spacing: -1px;
+        margin-bottom: 1.25rem;
+    }
+    .hero-subtitle {
+        font-size: 1.05rem;
+        margin-bottom: 2rem;
+    }
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.85rem;
+        margin-bottom: 2rem;
+    }
+    .hero-actions > a,
+    .hero-actions .btn {
+        width: 100%;
+    }
+    .hero-trust {
+        flex-direction: column;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+    }
+    .hero-visual {
+        margin-top: 2.5rem;
+    }
+    /* la rotation faisait sortir l'image du cadre */
+    .hero-image-placeholder {
+        transform: none;
+    }
+    /* cartes flottantes ramenees a l'interieur du visuel */
+    .experience-card {
+        top: -14px;
+        left: 0;
+        max-width: 196px;
+        padding: 0.8rem 0.9rem;
+        gap: 0.6rem;
+        text-align: left;
+    }
+    .experience-card.secondary {
+        top: auto;
+        left: auto;
+        right: 0;
+        bottom: -14px;
+        transform: none;
+    }
+    .experience-card h4 { font-size: 0.9rem; }
+    .experience-card p { font-size: 0.72rem; line-height: 1.35; }
+    .exp-icon {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 1.05rem;
+        border-radius: 10px;
+    }
+
+    /* --- Sections --- */
+    .features-section,
+    .pricing-section,
+    .testimonials-section {
+        padding: 4.5rem 0;
+    }
+    .contact-section {
+        padding: 4.5rem 0 5.5rem;
+    }
+    .section-header {
+        margin-bottom: 3rem;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .feature-icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1.25rem;
+    }
+    .feature-item h3 { font-size: 1.25rem; }
+
+    /* --- Tarifs --- */
+    .pricing-card {
+        padding: 2.5rem 1.5rem;
+    }
+    .pricing-text { font-size: 1.05rem; }
+    .pricing-cta-text { font-size: 1.05rem; margin-bottom: 2rem; }
+
+    /* --- Temoignages --- */
+    .testimonial-card { padding: 1.5rem; }
+    .testimonial-content { font-size: 1rem; }
+
+    /* --- Contact --- */
+    .contact-card {
+        padding: 3rem 1.5rem;
+    }
+    .contact-card h2 {
+        font-size: 1.85rem;
+    }
+    .contact-info-item {
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        justify-content: center;
+        text-align: center;
+        word-break: break-word;
+    }
+}
+
+@media (max-width: 400px) {
+    .hero-title { font-size: 2rem; }
+    .experience-card { max-width: 168px; padding: 0.7rem 0.8rem; }
+    .experience-card p { font-size: 0.68rem; }
+    .contact-info-item { font-size: 0.92rem; padding: 0.9rem 1rem; }
 }
 

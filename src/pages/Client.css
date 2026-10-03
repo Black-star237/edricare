@@ -149,3 +149,46 @@
         text-align: center;
     }
 }
+
+@media (max-width: 768px) {
+    .client-page {
+        padding-top: 100px;
+    }
+
+    .client-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .client-title {
+        font-size: 2.1rem;
+    }
+
+    .client-subtitle {
+        font-size: 1.05rem;
+    }
+
+    .search-box {
+        margin-bottom: 2rem;
+    }
+
+    .search-input {
+        font-size: 1rem;
+        padding: 1rem 1rem 1rem 3.25rem;
+    }
+
+    .search-icon {
+        left: 1.1rem;
+    }
+
+    .provider-card {
+        padding: 1.5rem;
+    }
+
+    .provider-name {
+        font-size: 1.2rem;
+    }
+
+    .provider-price {
+        text-align: center;
+    }
+}
